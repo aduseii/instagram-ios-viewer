@@ -30,186 +30,117 @@
     })();
   </script>
   <style>
-    :root {
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bot: env(safe-area-inset-bottom, 0px);
-      --line: #2f2f2f;
-      --muted: #8e8e93;
-      --blue: #0095f6;
-    }
+    :root { --safe-top: env(safe-area-inset-top, 0px); --safe-bot: env(safe-area-inset-bottom, 0px); --line: #2f2f2f; --muted: #8e8e93; --blue: #0095f6; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-      background:
-        radial-gradient(1200px 600px at 10% -10%, #2a1540 0%, transparent 50%),
-        radial-gradient(900px 500px at 110% 10%, #12243a 0%, transparent 45%),
-        #0b0b0d;
-      color: #f5f5f5;
-      -webkit-font-smoothing: antialiased;
-    }
-    .stage {
-      min-height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-      padding: 28px 20px;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; background: radial-gradient(1200px 600px at 10% -10%, #2a1540 0%, transparent 50%), radial-gradient(900px 500px at 110% 10%, #12243a 0%, transparent 45%), #0b0b0d; color: #f5f5f5; -webkit-font-smoothing: antialiased; }
+    .stage { min-height: 100%; display: flex; align-items: center; justify-content: center; gap: 40px; padding: 28px 20px; }
     .side { max-width: 340px; }
     .side h1 { font-size: 28px; letter-spacing: -0.03em; }
     .side p { color: #b7b7be; line-height: 1.5; margin: 10px 0 16px; font-size: 15px; }
     .side ol { color: #c9c9d0; padding-left: 18px; line-height: 1.7; font-size: 14px; }
     .side .note { margin-top: 16px; font-size: 12px; color: #8b8b93; line-height: 1.45; }
-
-    .phone {
-      width: min(390px, 100%);
-      height: min(844px, calc(100dvh - 40px));
-      background: #000;
-      border-radius: 46px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 0 0 10px #1a1a1c, 0 0 0 12px #3a3a3e, 0 30px 80px rgba(0,0,0,.55);
-      display: flex;
-      flex-direction: column;
-    }
-    .island {
-      position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
-      width: 120px; height: 34px; background: #000; border-radius: 20px; z-index: 8; pointer-events: none;
-    }
-    .status {
-      height: calc(54px + var(--safe-top));
-      padding: calc(14px + var(--safe-top)) 22px 0;
-      display: flex; justify-content: space-between; font-size: 15px; font-weight: 600;
-    }
-    .nav {
-      height: 44px;
-      display: grid;
-      grid-template-columns: 44px 1fr 44px;
-      align-items: center;
-      padding: 0 6px;
-    }
-    .nav button, .dock button {
-      background: none; border: 0; color: #fff; cursor: pointer;
-      display: grid; place-items: center; height: 44px;
-    }
+    .phone { width: min(390px, 100%); height: min(844px, calc(100dvh - 40px)); background: #000; border-radius: 46px; overflow: hidden; position: relative; box-shadow: 0 0 0 10px #1a1a1c, 0 0 0 12px #3a3a3e, 0 30px 80px rgba(0,0,0,.55); display: flex; flex-direction: column; }
+    .island { position: absolute; top: 11px; left: 50%; transform: translateX(-50%); width: 120px; height: 34px; background: #000; border-radius: 20px; z-index: 8; pointer-events: none; }
+    .status { height: calc(54px + var(--safe-top)); padding: calc(14px + var(--safe-top)) 22px 0; display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; }
+    .nav { height: 44px; display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; padding: 0 6px; }
+    .nav button, .dock button { background: none; border: 0; color: #fff; cursor: pointer; display: grid; place-items: center; height: 44px; }
     .nav .title { text-align: center; font-size: 16px; font-weight: 700; }
     .nav .sub { display: block; font-size: 11px; color: var(--muted); font-weight: 500; }
-
     .composer-bar { padding: 0 12px 10px; }
     .url-row { display: flex; gap: 8px; }
-    .url-row input {
-      flex: 1; height: 36px; border: 0; border-radius: 10px;
-      background: #1c1c1e; color: #fff; padding: 0 12px; font-size: 13px; outline: none;
-    }
-    .url-row .go {
-      height: 36px; padding: 0 14px; border: 0; border-radius: 10px;
-      background: var(--blue); color: #fff; font-weight: 700; font-size: 13px; cursor: pointer;
-    }
-
+    .url-row input { flex: 1; height: 36px; border: 0; border-radius: 10px; background: #1c1c1e; color: #fff; padding: 0 12px; font-size: 13px; outline: none; }
+    .url-row .go { height: 36px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--blue); color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; }
     .screen { flex: 1; min-height: 0; position: relative; background: #000; }
     .panel { position: absolute; inset: 0; }
     .panel[hidden] { display: none !important; }
     iframe { width: 100%; height: 100%; border: 0; background: #000; }
-
-    .empty, .fallback {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 28px; gap: 8px; color: var(--muted);
-    }
+    .empty, .fallback { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 28px; gap: 8px; color: var(--muted); }
     .empty h2, .fallback h2 { color: #fff; font-size: 20px; }
     .empty p, .fallback p { font-size: 14px; line-height: 1.45; }
-
-    .comments {
-      display: flex; flex-direction: column; background: #000; height: 100%;
-    }
-    .comments-list {
-      flex: 1; min-height: 0; overflow: auto;
-    }
-    /* truncated for this call - full file will be uploaded properly */
+    .comments { display: flex; flex-direction: column; background: #000; height: 100%; }
+    .comments-list { flex: 1; min-height: 0; overflow: auto; padding: 8px 14px 16px; }
+    .comment { display: grid; grid-template-columns: 36px 1fr; gap: 10px; padding: 10px 0; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #2c2c2e; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #fff; }
+    .who { font-size: 13px; }
+    .who strong { font-weight: 700; margin-right: 6px; }
+    .who span.body { font-weight: 400; white-space: pre-wrap; }
+    .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .stats { border-bottom: 0.5px solid var(--line); padding: 8px 0 12px; color: var(--muted); font-size: 13px; }
+    .open-ig { margin: 14px 0 8px; width: 100%; height: 42px; border: 0; border-radius: 12px; background: var(--blue); color: #fff; font-weight: 700; cursor: pointer; }
+    .composer { display: flex; gap: 8px; align-items: center; padding: 8px 12px calc(8px + var(--safe-bot)); border-top: 0.5px solid var(--line); }
+    .composer input { flex: 1; height: 36px; border: 0; border-radius: 18px; background: #1c1c1e; color: #fff; padding: 0 14px; font-size: 14px; outline: none; }
+    .composer button { background: none; border: 0; color: var(--blue); font-weight: 700; cursor: pointer; }
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; border-top: 0.5px solid var(--line); }
+    .tabs button { height: 42px; background: none; border: 0; color: var(--muted); font-weight: 700; font-size: 13px; cursor: pointer; position: relative; }
+    .tabs button.on { color: #fff; }
+    .tabs button.on::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 0; height: 2px; background: #fff; }
+    .dock { height: calc(50px + var(--safe-bot)); padding-bottom: var(--safe-bot); display: grid; grid-template-columns: repeat(5, 1fr); border-top: 0.5px solid var(--line); }
+    .dock button.dim { color: #8e8e93; }
+    .home-bar { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); width: 130px; height: 5px; background: #fff; border-radius: 99px; pointer-events: none; }
+    @media (max-width: 860px) { .side { display: none; } .stage { padding: 0; } .phone { width: 100%; height: 100dvh; border-radius: 0; box-shadow: none; } .island, .home-bar { display: none; } }
   </style>
 </head>
 <body>
   <div class="stage">
     <div class="side">
       <h1>InstaView</h1>
-      <p>Paste a public Instagram post, reel, TV, or profile URL. It loads in an iPhone chrome using the official embed.</p>
+      <p>Paste a public Instagram post or Reel. The post stays in the phone screen; Comments shows the caption and a one-tap jump into the real thread.</p>
       <ol>
-        <li>Copy a public Instagram URL</li>
-        <li>Paste it above the phone</li>
-        <li>Tap Go</li>
+        <li>Copy a public /p/ or /reel/ URL</li>
+        <li>Paste it and tap View</li>
+        <li>Switch to Comments</li>
       </ol>
-      <p class="note">Full comment threads still require opening Instagram. This uses the official embed only.</p>
+      <p class="note">Instagram does not give other apps the full comment list. This viewer shows the caption, likes, and comment count, then opens Instagram for the live thread.</p>
     </div>
-    <div class="phone" id="phone">
+    <div class="phone">
       <div class="island"></div>
-      <div class="status"><span>9:41</span><span>5G</span></div>
+      <div class="status"><span id="clock">9:41</span><span>•••• LTE</span></div>
       <div class="nav">
-        <button id="backBtn" title="Back">‹</button>
-        <div class="title">Instagram<span class="sub" id="subTitle">viewer</span></div>
-        <button id="openBtn" title="Open in Instagram">↗</button>
+        <button type="button" id="backBtn" aria-label="Back"><svg width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M10.5 1.5L2 10l8.5 8.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="title"><span id="navTitle">Post</span><span class="sub" id="navSub">instagram</span></div>
+        <button type="button" id="moreBtn" aria-label="More">•••</button>
       </div>
       <div class="composer-bar">
         <div class="url-row">
-          <input id="urlInput" type="url" placeholder="Paste Instagram URL…" />
-          <button class="go" id="goBtn">Go</button>
+          <input id="urlInput" type="url" inputmode="url" autocomplete="off" placeholder="Paste instagram.com/p/… or /reel/…" />
+          <button class="go" id="viewBtn" type="button">View</button>
         </div>
       </div>
       <div class="screen">
-        <div class="panel" id="emptyPanel">
-          <div class="empty">
-            <h2>Paste a link</h2>
-            <p>Public /p/, /reel/, /tv/, or profile URLs work.</p>
-          </div>
-        </div>
-        <div class="panel" id="embedPanel" hidden>
-          <iframe id="embedFrame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
-        </div>
-        <div class="panel" id="fallbackPanel" hidden>
-          <div class="fallback">
-            <h2>Couldn’t embed</h2>
-            <p>This post may be private or the embed is blocked. Open it on Instagram instead.</p>
-          </div>
-        </div>
-        <div class="panel" id="commentsPanel" hidden>
-          <div class="comments">
-            <div class="comments-list" id="commentsList"></div>
-            <div class="composer-bar">
-              <button id="postComment">Open comments on Instagram</button>
-            </div>
-          </div>
+        <div class="panel empty" id="empty"><h2>Drop a post link</h2><p>Public posts and Reels only. Comments open as an iOS thread with the caption and a link to Instagram.</p></div>
+        <div class="panel" id="postPanel" hidden><iframe id="postFrame" title="Instagram post" allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>
+        <div class="panel comments" id="commentsPanel" hidden>
+          <div class="comments-list" id="commentsList"></div>
+          <div class="composer"><input id="draft" placeholder="Add a comment…" /><button type="button" id="postComment">Post</button></div>
         </div>
       </div>
-      <div class="dock">
-        <button id="homeBtn" title="Home">⌂</button>
-        <button id="commentsBtn" title="Comments">☰</button>
-      </div>
+      <div class="home-bar"></div>
     </div>
   </div>
   <script>
     (function () {
-      var current = null;
       function $(id) { return document.getElementById(id); }
+      var current = null;
       function show(id) {
-        ["emptyPanel","embedPanel","fallbackPanel","commentsPanel"].forEach(function (p) {
-          $(p).hidden = p !== id;
+        ["empty","postPanel","commentsPanel"].forEach(function (p) {
+          var el = $(p);
+          if (el) el.hidden = (p !== id);
         });
       }
       function load(url) {
         if (!url) return;
         current = { canonical: url };
-        var embed = "https://www.instagram.com/p/embed?url=" + encodeURIComponent(url);
-        $("embedFrame").src = embed;
-        show("embedPanel");
-        $("subTitle").textContent = "loaded";
+        var embed = "https://www.instagram.com/embed/" + (url.includes("/reel/") ? "reel" : "p") + "?url=" + encodeURIComponent(url);
+        $("postFrame").src = embed;
+        show("postPanel");
+        $("navTitle").textContent = "Post";
+        $("navSub").textContent = "loaded";
       }
-      $("goBtn").onclick = function () { load($("urlInput").value.trim()); };
+      $("viewBtn").onclick = function () { load($("urlInput").value.trim()); };
       $("urlInput").onkeydown = function (e) { if (e.key === "Enter") load($("urlInput").value.trim()); };
-      $("openBtn").onclick = function () {
-        if (current) window.open(current.canonical, "_blank", "noopener");
-      };
-      $("postComment").onclick = function () {
-        if (current) window.open(current.canonical, "_blank", "noopener");
-      };
+      $("moreBtn").onclick = function () { if (current) window.open(current.canonical, "_blank", "noopener"); };
+      $("postComment").onclick = function () { if (current) window.open(current.canonical, "_blank", "noopener"); };
     })();
   </script>
 </body>
